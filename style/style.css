@@ -19,10 +19,9 @@ h3 {
   text-align: center;
 }
 
-input {
+.form {
   padding: 3rem 3rem 0;
   display: flex;
-  justify-content: space-between;
   text-align: center;
 }
 .container {

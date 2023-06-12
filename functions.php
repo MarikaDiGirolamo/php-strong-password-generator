@@ -1,13 +1,23 @@
-<?php 
- //creo funzione per dare un paramentro di validità alla pwd per lunghezza
-
-function random_pwd($currentPwd)
+<?php
+function generatePassword($length)
 {
-    $chars = ('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-=+;:,.?');
+    $result = "";
 
-    if (strlen($currentPwd) >= 5 && strlen($currentPwd) <= 12 && str_contains($currentPwd, $chars)) {
-        echo 'valida';
-    } else {
-        echo 'non valida';
+    $lowerchars = 'abcdefghijklmnopqrstuvwxyz';
+    $uppercase = strtoupper($lowerchars);
+    $numbers = '0123456789';
+    $symbol = '!@#$%^&*()_-=+;:,.?';
+
+    $allowedChar = $lowerchars . $uppercase . $numbers . $symbol;
+    $charsNumber = strlen($allowedChar);
+
+
+    for ($i = 0; $i < $length; $i++) {
+
+        $randomNum = rand(0, $charsNumber - 1);
+        $currentChar = $allowedChar[$randomNum];
+        $result .= $currentChar;
     }
+
+    return $result;
 }

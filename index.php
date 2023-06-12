@@ -1,21 +1,17 @@
 <?php
-$currentPwd = $_GET['pwd'];
-$valid_pwd = random_pwd($currentPwd);
 
+include './functions.php';
 
-//creo funzione per dare un paramentro di validità alla pwd per lunghezza
+$result = '';
+if (isset($_GET["pwd"])) {
+    $pwdLength = $_GET["pwd"];
+    $result = generatePassword($pwd);
 
-function random_pwd($currentPwd)
-{
-    $chars = ('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-=+;:,.?');
+    session_start();
+    $_SESSION["password"] = $result;
 
-    if (strlen($currentPwd) >= 5 && strlen($currentPwd) <= 12 && str_contains($currentPwd, $chars)) {
-        echo 'valida';
-    } else {
-        echo 'non valida';
-    }
+    header("Location: ./success.php");
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -33,23 +29,29 @@ function random_pwd($currentPwd)
 
 <body>
     <div class="container">
-
-        <h1>STRONG GENERATION PASSWORD</h1>
-        <h3>Generate a secure password</h3>
-
-        <div class="container form">
-            <form action="index.php" method="GET">
-                <label for="pwd">Lunghezza password:</label>
-                <input type="text" name="pwd" value="<?php echo $valid_pwd ?>" placeholder="Generate your password">
-                <div class="btn-container">
-                    <button class="btn btn-outline-primary" type="submit">Submit</button>
-                    <button class="btn btn-outline-secondary" type="reset">Reset</button>
-
-                </div>
-            </form>
-
+        <div class="row">
+            <div class="col-12">
+                <h1>STRONG GENERATION PASSWORD</h1>
+                <h3>Generate a secure password</h3>
+            </div>
+            <div class="col-12">
+                <?php if (isset($result)) { ?>
+                    <div class="alert alert-primary">
+                        <?php echo $result ?>
+                    </div>
+                <?php } ?>
+            </div>
+            <div class="col-12 form">
+                <form action="index.php" method="GET">
+                    <label for="pwd">Lunghezza password:</label>
+                    <input type="text" name="pwd" id="pwd" value="" placeholder="Generate your password">
+                    <div class="button mt-4">
+                        <button class="btn btn-outline-primary" type="submit">Submit</button>
+                        <button class="btn btn-outline-secondary" type="reset">Reset</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
 
 </body>
 
