@@ -1,4 +1,20 @@
 <?php
+$currentPwd = $_GET['pwd'];
+$valid_pwd = random_pwd($currentPwd);
+
+
+//creo funzione per dare un paramentro di validità alla pwd per lunghezza
+
+function random_pwd($currentPwd)
+{
+    $chars = ('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-=+;:,.?');
+
+    if (strlen($currentPwd) >= 5 && strlen($currentPwd) <= 12 && str_contains($currentPwd, $chars)) {
+        echo 'valida';
+    } else {
+        echo 'non valida';
+    }
+}
 
 ?>
 
@@ -24,13 +40,13 @@
         <div class="container form">
             <form action="index.php" method="GET">
                 <label for="pwd">Lunghezza password:</label>
-                <input type="text" name="pwd" value="">
-            </form>
-            <div class="container btn-container">
-                <button class="btn btn-outline-primary" type="submit">Submit</button>
-                <button class="btn btn-outline-secondary" type="reset">Reset</button>
+                <input type="text" name="pwd" value="<?php echo $valid_pwd ?>" placeholder="Generate your password">
+                <div class="btn-container">
+                    <button class="btn btn-outline-primary" type="submit">Submit</button>
+                    <button class="btn btn-outline-secondary" type="reset">Reset</button>
 
-            </div>
+                </div>
+            </form>
 
         </div>
     </div>
